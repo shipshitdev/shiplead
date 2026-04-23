@@ -39,16 +39,14 @@ permissions:
 env:
   BUN_VERSION: "1.3.13"
   NODE_VERSION: "22"
-  VERCEL_ORG_ID_WEB: "team_hFVCbNU4RnfEpQOeSWRxmhEJ"
-  VERCEL_PROJECT_ID_WEB: "prj_kF44uQIXP7KV84sL19aaDvMc1KeE"
 
 jobs:
   deploy-web:
     if: ${{ inputs.deploy_web }}
     runs-on: ubuntu-latest
     env:
-      VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID_WEB }}
-      VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID_WEB }}
+      VERCEL_ORG_ID: "team_hFVCbNU4RnfEpQOeSWRxmhEJ"
+      VERCEL_PROJECT_ID: "prj_kF44uQIXP7KV84sL19aaDvMc1KeE"
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -141,7 +139,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   update-homebrew-cask:
-    if: ${{ inputs.build_macos && inputs.update_homebrew && secrets.HOMEBREW_TAP_TOKEN != '' }}
+    if: ${{ inputs.build_macos && inputs.update_homebrew }}
     needs: build-desktop-macos
     runs-on: ubuntu-latest
     steps:
