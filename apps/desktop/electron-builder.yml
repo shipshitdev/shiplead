@@ -1,0 +1,22 @@
+appId: dev.shipshit.shiplead
+productName: ShipLead
+artifactName: "${productName}-${version}-${arch}.${ext}"
+directories:
+  output: out
+files:
+  - dist/**/*
+  - package.json
+extraResources:
+  - from: ../api/dist/desktop/index.mjs
+    to: api/index.mjs
+mac:
+  target:
+    - dmg
+    - zip
+  category: public.app-category.business
+  hardenedRuntime: true
+linux:
+  target:
+    - AppImage
+    - deb
+  category: Office

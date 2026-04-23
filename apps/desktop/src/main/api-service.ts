@@ -95,7 +95,18 @@ export type LaunchCommand = {
   args: string[];
 };
 
-export function resolveLaunchCommand(repoRoot: string, isDev: boolean): LaunchCommand {
+export function resolveLaunchCommand(
+  repoRoot: string,
+  isDev: boolean,
+  packagedApiEntry?: string | null,
+): LaunchCommand {
+  if (packagedApiEntry && fs.existsSync(packagedApiEntry)) {
+    return {
+      command: process.execPath,
+      args: [packagedApiEntry],
+    };
+  }
+
   const apiSourceEntry = path.join(repoRoot, 'apps', 'api', 'src', 'index.ts');
   const apiDistEntry = path.join(repoRoot, 'apps', 'api', 'dist', 'index.js');
   const tsxCliEntry = path.join(repoRoot, 'node_modules', 'tsx', 'dist', 'cli.mjs');
@@ -128,12 +139,14 @@ export function resolveLaunchCommand(repoRoot: string, isDev: boolean): LaunchCo
 
 type ApiServiceManagerOptions = {
   desktopRoot: string;
+  packagedApiEntry?: string | null;
   repoRoot: string;
   userDataPath: string;
 };
 
 export class ApiServiceManager {
   private readonly desktopRoot: string;
+  private readonly packagedApiEntry: string | null;
   private readonly repoRoot: string;
   private readonly userDataPath: string;
   private child: ChildProcessWithoutNullStreams | null = null;
@@ -142,6 +155,7 @@ export class ApiServiceManager {
 
   constructor(options: ApiServiceManagerOptions) {
     this.desktopRoot = options.desktopRoot;
+    this.packagedApiEntry = options.packagedApiEntry ?? null;
     this.repoRoot = options.repoRoot;
     this.userDataPath = options.userDataPath;
     loadLocalEnvFiles(this.repoRoot, this.desktopRoot);
@@ -209,7 +223,11 @@ export class ApiServiceManager {
   }
 
   private spawnLocalApi(parsedBaseUrl: URL): void {
-    const launch = resolveLaunchCommand(this.repoRoot, Boolean(process.env.VITE_DEV_SERVER_URL));
+    const launch = resolveLaunchCommand(
+      this.repoRoot,
+      Boolean(process.env.VITE_DEV_SERVER_URL),
+      this.packagedApiEntry,
+    );
     const dataDir = path.join(this.userDataPath, 'data');
     fs.mkdirSync(dataDir, { recursive: true });
 

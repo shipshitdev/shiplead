@@ -2,7 +2,7 @@ import path from 'node:path';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import { ApiServiceManager, resolveDesktopRoots } from './api-service';
 
-app.setName('Shiplead');
+app.setName('ShipLead');
 
 const DIST = path.join(__dirname, '..');
 const { desktopRoot, repoRoot } = resolveDesktopRoots(__dirname);
@@ -43,6 +43,7 @@ function createWindow(): BrowserWindow {
 app.whenReady().then(() => {
   apiService = new ApiServiceManager({
     desktopRoot,
+    packagedApiEntry: app.isPackaged ? path.join(process.resourcesPath, 'api', 'index.mjs') : null,
     repoRoot,
     userDataPath: app.getPath('userData'),
   });

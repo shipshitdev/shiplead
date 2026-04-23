@@ -19,7 +19,21 @@ packages/
   ui/          shared React primitives
 ```
 
-## Run
+## Install
+
+```bash
+brew tap shipshitdev/tap
+brew install --cask shiplead
+```
+
+## CLI
+
+```bash
+npx @shipshitdev/shiplead status
+npx @shipshitdev/shiplead serve
+```
+
+## Run From Source
 
 ```bash
 bun install
@@ -31,4 +45,3 @@ bun run dev:web
 Default API URL: `http://127.0.0.1:4280`
 
 The API auto-seeds a local demo workspace on first run into `.data/shiplead.db`.
-

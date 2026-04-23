@@ -3,11 +3,22 @@
 import { useState } from 'react';
 
 const COMMANDS = {
-  desktop: `git clone https://github.com/shipshitdev/shiplead\ncd shiplead\nbun install\nbun run dev:desktop`,
-  api: `bun run dev:api`,
+  desktop: `brew tap shipshitdev/tap\nbrew install --cask shiplead`,
+  cli: `npx @shipshitdev/shiplead status`,
 } as const;
 
 type InstallMode = keyof typeof COMMANDS;
+
+const MODE_COPY: Record<InstallMode, { label: string; description: string }> = {
+  desktop: {
+    label: 'Desktop App',
+    description: 'Install the packaged macOS app with Homebrew Cask.',
+  },
+  cli: {
+    label: 'CLI',
+    description: 'Run the published CLI through npx without cloning the repo.',
+  },
+};
 
 export function InstallCommand({ compact = false }: { compact?: boolean }) {
   const [copied, setCopied] = useState(false);
@@ -23,7 +34,7 @@ export function InstallCommand({ compact = false }: { compact?: boolean }) {
     <div className={`mx-auto w-full ${compact ? 'max-w-lg' : 'max-w-2xl px-6 pb-16'}`}>
       <div className="mb-3 flex items-center justify-between px-1">
         <div className="flex gap-5">
-          {(['desktop', 'api'] as InstallMode[]).map((item) => (
+          {(['desktop', 'cli'] as InstallMode[]).map((item) => (
             <button
               key={item}
               type="button"
@@ -32,7 +43,7 @@ export function InstallCommand({ compact = false }: { compact?: boolean }) {
                 mode === item ? 'text-primary' : 'text-muted hover:text-secondary'
               }`}
             >
-              {item === 'desktop' ? 'Desktop App' : 'Local API'}
+              {MODE_COPY[item].label}
             </button>
           ))}
         </div>
@@ -44,6 +55,8 @@ export function InstallCommand({ compact = false }: { compact?: boolean }) {
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
+
+      <p className="mb-3 px-1 text-sm text-muted">{MODE_COPY[mode].description}</p>
 
       <div className="rounded-lg bg-white/[0.04] px-5 py-4 text-left">
         {COMMANDS[mode].split('\n').map((line) => (

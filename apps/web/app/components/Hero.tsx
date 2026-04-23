@@ -7,14 +7,19 @@ export function Hero() {
     <section className="px-6 pt-[16vh] pb-24 text-center md:pt-[18vh]">
       <div className="mx-auto max-w-4xl">
         <div className="animate-fade-in-up">
-          <h1 className="mx-auto mt-4 text-5xl font-semibold tracking-[-0.05em] text-primary md:text-6xl lg:text-7xl">
-            Leads in.
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-medium tracking-[0.18em] text-secondary uppercase">
+            ShipLead
+            <span className="text-muted">Desktop app + CLI</span>
+          </div>
+          <h1 className="mx-auto mt-8 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-primary md:text-6xl lg:text-7xl">
+            Local-first CRM for
             <br />
-            <span className="text-[#34d399]">Pipeline out.</span>
+            <span className="text-[#34d399]">founder-led sales.</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-7 text-secondary">
-            Shiplead is a local-first agentic CRM for selling multiple products, offers, and
-            founder-led sequences from one operator cockpit.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-secondary md:text-xl">
+            Install the desktop app with Homebrew or run ShipLead instantly with <code>npx</code>.
+            Keep contacts, companies, tasks, and pipeline state on your machine while agents handle
+            the busywork.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -43,6 +48,10 @@ export function Hero() {
           style={{ animationDelay: '120ms', animationFillMode: 'both' }}
         >
           <InstallCommand compact />
+          <p className="mt-4 text-sm text-muted">
+            Use the desktop app for day-to-day pipeline work. Use the CLI for scripts, cron, and
+            quick local checks.
+          </p>
         </div>
 
         <div

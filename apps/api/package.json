@@ -4,8 +4,16 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./source": "./src/server.ts"
+  },
   "scripts": {
     "build": "tsc",
+    "bundle:desktop": "bun build src/index.ts --target node --format esm --outfile dist/desktop/index.mjs",
     "clean": "rm -rf dist",
     "dev": "tsx watch src/index.ts",
     "lint": "biome check src/",

@@ -1,0 +1,39 @@
+{
+  "name": "@shipshitdev/shiplead",
+  "version": "0.0.1",
+  "description": "Local-first agentic CRM for founder-led sales.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "shiplead": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "biome check src/",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "14.0.3"
+  },
+  "devDependencies": {
+    "@shiplead/api": "workspace:*",
+    "@shiplead/db": "workspace:*",
+    "@shiplead/shared": "workspace:*",
+    "@types/node": "25.6.0",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.5"
+  }
+}
