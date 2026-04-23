@@ -1,32 +1,14 @@
 {
-  "name": "@shiplead/desktop",
-  "private": true,
-  "version": "0.0.1",
-  "description": "Local-first agentic CRM for founder-led sales.",
   "author": "shipshitdev",
-  "productName": "ShipLead",
-  "main": "./dist/main/index.js",
-  "scripts": {
-    "build": "bun run build:code && electron-builder",
-    "build:api": "cd ../.. && bun run build --filter=@shiplead/api && cd apps/api && bun run bundle:desktop",
-    "build:code": "bun run build:api && tsc && vite build",
-    "build:installer:linux": "electron-builder --linux",
-    "build:installer:mac": "electron-builder --mac",
-    "clean": "rm -rf dist out",
-    "dev": "vite",
-    "lint": "biome check src/",
-    "start": "electron .",
-    "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit"
-  },
   "dependencies": {
     "@fontsource/dm-sans": "5.2.8",
     "@shiplead/shared": "workspace:*",
-    "@shipshitdev/ui": "^0.4.8",
-    "@tanstack/react-query": "5.99.2",
+    "@shipshitdev/ui": "0.5.0",
+    "@tanstack/react-query": "5.100.1",
     "react": "19.2.5",
     "react-dom": "19.2.5"
   },
+  "description": "Local-first agentic CRM for founder-led sales.",
   "devDependencies": {
     "@tailwindcss/postcss": "4.2.4",
     "@types/node": "25.6.0",
@@ -41,5 +23,23 @@
     "vite-plugin-electron": "0.29.1",
     "vite-plugin-electron-renderer": "0.14.6",
     "vitest": "4.1.5"
-  }
+  },
+  "main": "./dist/main/index.js",
+  "name": "@shiplead/desktop",
+  "private": true,
+  "productName": "ShipLead",
+  "scripts": {
+    "build": "bun run build:code && electron-builder",
+    "build:api": "cd ../.. && bun run build --filter=@shiplead/api && cd apps/api && bun run bundle:desktop",
+    "build:code": "bun run build:api && tsc && vite build",
+    "build:installer:linux": "electron-builder --linux",
+    "build:installer:mac": "electron-builder --mac",
+    "clean": "rm -rf dist out",
+    "dev": "vite",
+    "lint": "biome check src/",
+    "start": "electron .",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "version": "0.0.1"
 }

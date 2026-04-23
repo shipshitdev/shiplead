@@ -1,25 +1,4 @@
 {
-  "name": "@shiplead/api",
-  "private": true,
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/server.d.ts",
-      "import": "./dist/server.js"
-    },
-    "./source": "./src/server.ts"
-  },
-  "scripts": {
-    "build": "tsc",
-    "bundle:desktop": "bun build src/index.ts --target node --format esm --outfile dist/desktop/index.mjs",
-    "clean": "rm -rf dist",
-    "dev": "tsx watch src/index.ts",
-    "lint": "biome check src/",
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
-  },
   "dependencies": {
     "@shiplead/agents": "workspace:*",
     "@shiplead/channels": "workspace:*",
@@ -30,8 +9,29 @@
   },
   "devDependencies": {
     "@types/node": "25.6.0",
-    "tsx": "^4.21.0",
+    "tsx": "4.21.0",
     "typescript": "6.0.3",
     "vitest": "4.1.5"
-  }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    },
+    "./source": "./src/server.ts"
+  },
+  "main": "./dist/index.js",
+  "name": "@shiplead/api",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "bundle:desktop": "bun build src/index.ts --target node --format esm --outfile dist/desktop/index.mjs",
+    "clean": "rm -rf dist",
+    "dev": "tsx watch src/index.ts",
+    "lint": "biome check src/",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
 }

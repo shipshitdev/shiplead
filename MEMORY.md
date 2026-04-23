@@ -9,6 +9,9 @@
 - The workspace now contains a Bun/Turbo monorepo with `apps/api`, `apps/web`, `apps/desktop`, and shared packages for `db`, `shared`, `agents`, `channels`, `sequences`, `enrichment`, and `ui`
 - The first implementation milestone is local-first and single-owner: multi-project CRM, task queue, search, inbox, activities, opportunities, sequences, and bounded AI helper endpoints
 - The API auto-seeds demo data into `.data/shiplead.db` and is expected at `http://127.0.0.1:4280` by default
+- Desktop release packaging follows the ShipCut workflow: `electron-builder.yml` emits `ShipLead-<version>-<arch>.dmg`, publish workflow uploads release artifacts, and `shipshitdev/homebrew-tap` updates the `shiplead` cask hashes
+- Packaged desktop builds bundle the local API at `Contents/Resources/api/index.mjs`; source checkouts still fall back to `apps/api/dist/index.js` or TSX dev startup
+- ShipLead now has a CLI package at `apps/cli`, published as `@shipshitdev/shiplead` with a `shiplead` bin; it uses the same local data directory as desktop and supports local API serving plus basic CRM list/create/update commands
 - The desktop cockpit follows ShipCode interaction patterns: New Task is a real modal, Search is a command palette, and shared UI comes from `@shipshitdev/ui`
 - Desktop navigation convention: Tasks/Inbox/Activities are global; sidebar projects stay flat; the selected project view uses ShipCode-style tabs for Overview, Pipeline, Contacts, and Companies; Pipeline is a lead-status kanban board
 - Pipeline tab convention: no metric cards above the board; kanban columns fill available height with equal weight; clicking a lead opens a right overlay detail panel
