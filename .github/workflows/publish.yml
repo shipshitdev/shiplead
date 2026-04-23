@@ -84,7 +84,10 @@ jobs:
         run: |
           VERSION="${{ inputs.release_tag }}"
           VERSION="${VERSION#v}"
-          cd apps/desktop && npm version "$VERSION" --no-git-tag-version
+          CURRENT=$(node -p "require('./apps/desktop/package.json').version")
+          if [ "$CURRENT" != "$VERSION" ]; then
+            cd apps/desktop && npm version "$VERSION" --no-git-tag-version
+          fi
       - name: Build desktop app
         run: cd apps/desktop && bun run build:code
       - name: Package Linux installers
@@ -122,7 +125,10 @@ jobs:
         run: |
           VERSION="${{ inputs.release_tag }}"
           VERSION="${VERSION#v}"
-          cd apps/desktop && npm version "$VERSION" --no-git-tag-version
+          CURRENT=$(node -p "require('./apps/desktop/package.json').version")
+          if [ "$CURRENT" != "$VERSION" ]; then
+            cd apps/desktop && npm version "$VERSION" --no-git-tag-version
+          fi
       - name: Build desktop app
         run: cd apps/desktop && bun run build:code
       - name: Package macOS installers
@@ -207,6 +213,9 @@ jobs:
         run: |
           VERSION="${{ inputs.release_tag }}"
           VERSION="${VERSION#v}"
-          cd apps/cli && npm version "$VERSION" --no-git-tag-version
+          CURRENT=$(node -p "require('./apps/cli/package.json').version")
+          if [ "$CURRENT" != "$VERSION" ]; then
+            cd apps/cli && npm version "$VERSION" --no-git-tag-version
+          fi
       - name: Publish to npm (OIDC / Trusted Publisher)
         run: cd apps/cli && npm publish --access public --provenance
