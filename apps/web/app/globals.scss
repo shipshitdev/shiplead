@@ -1,0 +1,65 @@
+@use "tailwindcss";
+@source "../node_modules/@shipshitdev/ui/**/*.{js,jsx,ts,tsx,mjs}";
+@source "../node_modules/@shipshitdev/ui/dist/index.js";
+
+:root {
+  --bg-primary: #0d0c12;
+  --bg-secondary: #17151f;
+  --bg-hover: #252230;
+  --border: rgba(255, 255, 255, 0.1);
+  --text-primary: #faf7ef;
+  --text-secondary: #bfb6a6;
+  --text-muted: #7c7568;
+  --accent: #e7a83e;
+  --accent-foreground: #0d0c12;
+  --accent-hover: #f5ba59;
+}
+
+@theme inline {
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-plex-mono);
+}
+
+@utility bg-primary {
+  background-color: var(--bg-primary);
+}
+
+@utility bg-secondary {
+  background-color: var(--bg-secondary);
+}
+
+@utility bg-hover {
+  background-color: var(--bg-hover);
+}
+
+@utility text-primary {
+  color: var(--text-primary);
+}
+
+@utility text-secondary {
+  color: var(--text-secondary);
+}
+
+@utility text-muted {
+  color: var(--text-muted);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(231, 168, 62, 0.14), transparent 34%),
+      linear-gradient(180deg, #0d0c12 0%, #0d0c12 100%);
+    color: var(--text-primary);
+  }
+}

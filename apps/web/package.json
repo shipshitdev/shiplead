@@ -1,0 +1,29 @@
+{
+  "name": "@shiplead/web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "clean": "rm -rf .next out",
+    "dev": "next dev -p 3010",
+    "lint": "biome check app/",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@shiplead/shared": "workspace:*",
+    "@shipshitdev/ui": "^0.4.8",
+    "next": "16.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.2.4",
+    "@types/node": "25.6.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "4.2.4",
+    "typescript": "6.0.3",
+    "vitest": "4.1.5"
+  }
+}
