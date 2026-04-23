@@ -1,5 +1,6 @@
 node_modules
 .turbo
+.vercel
 .next
 dist
 out
@@ -7,4 +8,3 @@ coverage
 .data
 .env
 .env.*
-
