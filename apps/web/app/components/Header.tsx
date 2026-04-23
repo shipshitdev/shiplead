@@ -1,0 +1,45 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { LogoMark } from './LogoMark';
+
+export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-primary/75 backdrop-blur-xl' : 'bg-transparent'
+      }`}
+    >
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+        <a
+          href="/"
+          className="flex items-center gap-3 text-sm font-medium tracking-[0.18em] text-primary uppercase"
+        >
+          <LogoMark className="h-8 w-8 shrink-0" />
+          Shiplead
+        </a>
+        <div className="flex items-center gap-6 text-sm">
+          <a href="#workflow" className="text-secondary transition-colors hover:text-primary">
+            Workflow
+          </a>
+          <a
+            href="https://github.com/shipshitdev/shiplead"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-secondary transition-colors hover:text-primary"
+          >
+            GitHub
+          </a>
+        </div>
+      </nav>
+    </header>
+  );
+}

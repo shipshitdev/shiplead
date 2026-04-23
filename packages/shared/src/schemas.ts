@@ -450,6 +450,10 @@ export const taskStatusPatchSchema = z.object({
   status: taskStatusSchema,
 });
 
+export const leadStatusPatchSchema = z.object({
+  status: leadStatusSchema,
+});
+
 export const channelDraftSchema = z.object({
   channel: channelSchema,
   subject: z.string().nullable(),

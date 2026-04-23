@@ -43,6 +43,23 @@ describe('api app', () => {
     expect(body.status).toBe('done');
   });
 
+  it('updates lead status', async () => {
+    const { store } = makeStore();
+    const lead = store.listLeads()[0];
+    const response = await handleApiRequest(
+      new Request(`http://localhost/leads/${lead.id}/status`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: 'qualified' }),
+      }),
+      { store },
+    );
+
+    const body = await response.json();
+    expect(response.status).toBe(200);
+    expect(body.status).toBe('qualified');
+    expect(store.getLeadById(lead.id)?.status).toBe('qualified');
+  });
+
   it('triages replies and creates follow-up work', async () => {
     const { store } = makeStore();
     const thread = store.listThreads().find((item) => item.unreadCount > 0);

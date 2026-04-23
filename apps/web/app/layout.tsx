@@ -16,8 +16,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Shiplead',
-  description: 'Agentic CRM, lead, and SDR cockpit for multiple products and offers.',
+  title: 'Shiplead — Agentic CRM For Founder-Led Sales',
+  description:
+    'Local-first CRM, lead pipeline, and AI SDR cockpit for selling multiple products and offers.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

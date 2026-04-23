@@ -367,6 +367,10 @@ export interface CreateLeadInput {
   notes?: string;
 }
 
+export interface LeadStatusPatchInput {
+  status: LeadStatus;
+}
+
 export interface CreateOpportunityInput {
   projectId: string;
   offerId: string;

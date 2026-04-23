@@ -17,6 +17,7 @@ import {
   createSequenceInputSchema,
   createTaskInputSchema,
   createThreadInputSchema,
+  leadStatusPatchSchema,
   personalizationRequestSchema,
   type ReplyClassification,
   replyTriageRequestSchema,
@@ -194,6 +195,31 @@ export async function handleApiRequest(request: Request, ctx: ApiContext): Promi
         const input = await readJson(request, createLeadInputSchema);
         return json(ctx.store.createLead(input), 201);
       }
+    }
+
+    const leadStatusMatch = matchPath(pathname, /^\/leads\/([^/]+)\/status$/);
+    if (leadStatusMatch && request.method === 'PATCH') {
+      const leadId = leadStatusMatch[1];
+      const body = await readJson(request, leadStatusPatchSchema);
+      const previous = ctx.store.getLeadById(leadId);
+      const updated = ctx.store.updateLeadStatus(leadId, body.status);
+      if (!updated) return errorResponse('Lead not found', 404);
+
+      ctx.store.createActivity({
+        projectId: updated.projectId,
+        brandId: updated.brandId,
+        contactId: updated.contactId,
+        companyId: updated.companyId,
+        opportunityId: null,
+        kind: 'stage-changed',
+        actor: 'human',
+        summary: `Lead moved to ${updated.status}`,
+        detail: previous
+          ? `Lead status changed from ${previous.status} to ${updated.status}.`
+          : `Lead status changed to ${updated.status}.`,
+      });
+
+      return json(updated);
     }
 
     if (pathname === '/opportunities') {

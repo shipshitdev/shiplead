@@ -1,0 +1,5 @@
+{
+  "buildCommand": "bun run --filter @shiplead/web build",
+  "outputDirectory": "apps/web/out",
+  "installCommand": "bun install"
+}

@@ -37,6 +37,7 @@ import {
   type Enrollment,
   type InboxThread,
   type LeadRecord,
+  leadStatusPatchSchema,
   type Message,
   type Offer,
   type Opportunity,
@@ -1102,6 +1103,15 @@ export class ShipleadDatabase {
       .prepare('UPDATE tasks SET status = ?, updated_at = ? WHERE id = ?')
       .run(value.status, now, taskId);
     return this.getTaskById(taskId);
+  }
+
+  updateLeadStatus(leadId: string, status: LeadRecord['status']): LeadRecord | null {
+    const value = leadStatusPatchSchema.parse({ status });
+    const now = toIsoUtc();
+    this.db
+      .prepare('UPDATE leads SET status = ?, updated_at = ? WHERE id = ?')
+      .run(value.status, now, leadId);
+    return this.getLeadById(leadId);
   }
 
   updateMessageClassification(
